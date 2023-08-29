@@ -29,7 +29,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <style>
         .available-foods{
+            width: 100%;
             height: 450px;
+            overflow-y: scroll;
         }
     </style>
 </head>
@@ -48,7 +50,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h6 class="text-center">Meals</h6>
-                    <div class="row">
+                    <div class="row mx-3">
                         <?php 
                             $foods = fetch_foods(1);
                             foreach($foods as $food){
@@ -57,12 +59,9 @@
                             ?>
                     </div>
                 </div>
-                <div class="col-md-1">
-                    <div class="vr"></div>
-                </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <h6 class="text-center">Drinks</h6>
-                    <div class="row">
+                    <div class="row mx-3">
                         <?php 
                             $foods = fetch_foods(2);
                             foreach($foods as $food){
