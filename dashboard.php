@@ -39,7 +39,17 @@
                 </div>
                 <div>
                     <?php if($user["role_id"] == 1): ?>
-                        <a href="#">Actions</a>
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Add user</a></li>
+                                <li><a class="dropdown-item" href="#">Add food</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Manage orders</a></li>
+                            </ul>
+                        </div>
                     <?php endif ?>
                 </div>  
                 <div>
@@ -55,7 +65,7 @@
         </header>
 
         <main>
-            <div class="row mt-5">
+            <div class="row my-5">
             <?php 
                 $orders = fetch_orders();
                 if(!$orders){
