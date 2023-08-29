@@ -1,13 +1,13 @@
 <?php
     require_once("./functions/init.php");
+
+    $role_whitelist = [1, 2];
     
     if(!isset($_SESSION["user_id"])){
         redirect_message("Access denied", "index.php", true);
     }
     $user_id = $_SESSION["user_id"];
-    $sql = "SELECT users.username, users.email, users.created_at, roles.id as role_id, roles.name as 'role' FROM `users` JOIN roles ON users.role_id = roles.id WHERE users.id = $user_id";
-    $run = $conn->query($sql);
-    $user = $run->fetch_assoc();
+    $user = get_user($user_id);
 
 ?>
 
@@ -38,7 +38,12 @@
                     <a href="logout.php" class="btn btn-danger">Logout</a>
                 </div>
                 <div>
-                    <?php if($user["role_id"] == 1) : ?>
+                    <?php if($user["role_id"] == 1): ?>
+                        <a href="#">Actions</a>
+                    <?php endif ?>
+                </div>  
+                <div>
+                    <?php if(in_array($user["role_id"], $role_whitelist)) : ?>
                     <form action="create_order.php" method="post">
                         <input type="hidden" name="user_id" value="<?= $user_id?>" />
                         <button class="btn btn-success">New order</button>
@@ -94,6 +99,8 @@
             
         </main>
     </div>
+
+    <?php $conn->close(); ?>
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

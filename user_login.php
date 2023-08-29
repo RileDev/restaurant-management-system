@@ -32,3 +32,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
 }
+
+redirect_message("Access denied", "index.php", true);

@@ -37,3 +37,24 @@
             return false;
         }
     }
+
+    function fetch_foods($cat){
+        global $conn;
+        $cat = filter_var($cat, FILTER_SANITIZE_NUMBER_INT);
+        $sql = "SELECT * FROM `foods` WHERE category_id = $cat AND is_deleted = 0";
+        $run = $conn->query($sql);
+        $results = $run->fetch_all(MYSQLI_ASSOC);
+        
+        if($run->num_rows > 0){
+           return $results;
+        }
+
+        $conn->close();
+    }
+
+    function get_user($user_id){
+        global $conn;
+        $sql = "SELECT users.username, users.email, users.created_at, roles.id as role_id, roles.name as 'role' FROM `users` JOIN roles ON users.role_id = roles.id WHERE users.id = $user_id";
+        $run = $conn->query($sql);
+        return $run->fetch_assoc();
+    }
