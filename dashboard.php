@@ -77,7 +77,7 @@
                     $orders_element[$order['id']]['id']=$order['id'];
                     $orders_element[$order['id']]['username'] = $order['username'];
                     $orders_element[$order['id']]['created'] = $order['created'];
-                    $orders_element[$order['id']]['foods'][]=array('foods'=>$order['foods']);
+                    $orders_element[$order['id']]['foods'][]=array('foods'=>$order['foods'], 'quantity' => $order['quantity']);
                 }
 
                 foreach($orders_element as $element) : $id = $element["id"] ?>
@@ -91,7 +91,7 @@
                                 <?php
                                     $foods = $element["foods"];
                                     foreach($foods as $food){
-                                        echo '<li class="card-text">'.$food["foods"].'</li>';
+                                        echo '<li class="card-text">'.$food["foods"].' x ' . $food["quantity"] .'</li>';
                                     }
                                 ?>
                             </ol> 

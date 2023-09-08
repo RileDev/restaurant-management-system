@@ -9,7 +9,7 @@
             foreach($items as $item){
                 $sql = "INSERT INTO `foods_orders`(foods_id, quantity, orders_id) VALUE(?, ?, ?)";
                 $run = $conn->prepare($sql);
-                $run->bind_param("iii", $item["id"], $item["quantity"], $order_id);
+                $run->bind_param("isi", $item["id"], $item["quantity"], $order_id);
                 $run->execute();
             }
             
