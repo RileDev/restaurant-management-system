@@ -3,17 +3,26 @@
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
         if(isset($_POST['foods-array']) && isset($_SESSION["order_id"])){
-            $array= $_POST['foods-array'];
+            $items = json_decode($_POST['foods-array'], true);
             $order_id = $_SESSION["order_id"];
 
-            $items = explode(",", $array);
-            
             foreach($items as $item){
-                $sql = "INSERT INTO `foods_orders`(foods_id, orders_id) VALUE(?, ?)";
+                $sql = "INSERT INTO `foods_orders`(foods_id, quantity, orders_id) VALUE(?, ?, ?)";
                 $run = $conn->prepare($sql);
-                $run->bind_param("ii", $item, $order_id);
+                $run->bind_param("iii", $item["id"], $item["quantity"], $order_id);
                 $run->execute();
             }
+            
+            // $array= $_POST['foods-array'];
+
+            // $items = explode(",", $array);
+            
+            // foreach($items as $item){
+            //     $sql = "INSERT INTO `foods_orders`(foods_id, orders_id) VALUE(?, ?)";
+            //     $run = $conn->prepare($sql);
+            //     $run->bind_param("ii", $item, $order_id);
+            //     $run->execute();
+            // }
 
             redirect_close_db("Order no. $order_id has successfully created", "dashboard.php");
         }

@@ -1,6 +1,7 @@
 let items = [];
 const clearBtn = document.getElementById("clearItems");
 const foodsBtns = document.querySelectorAll("#foodsBtn");
+const foodsInputs = document.querySelectorAll("#foodsQuantityInput");
 const selectedFoodsContainer = document.querySelector(
   ".selected-foods .row ul"
 );
@@ -8,8 +9,10 @@ const foodsArr = document.getElementById("foods-array");
 
 const fetchFoods = (el) => {
   const dataID = el.getAttribute("data-id");
+  const quantityInput = el.previousSibling;
   el.disabled = true;
-  items.push({ id: dataID, name: el.innerText });
+  quantityInput.disabled = true;
+  items.push({ id: dataID, name: el.innerText, quantity: quantityInput.value });
   updateContainer();
   console.log(dataID);
 };
@@ -17,6 +20,7 @@ const fetchFoods = (el) => {
 const clearItems = () => {
   items.splice(0, items.length);
   enableBtns();
+  enableInputs();
   updateContainer();
   console.log("ITEMS ARE CLEANED!");
 };
@@ -27,14 +31,20 @@ const enableBtns = () => {
   });
 };
 
+const enableInputs = () => {
+  foodsInputs.forEach((foodInput) => {
+    foodInput.disabled = false;
+  });
+};
+
 const updateContainer = () => {
   let content = "";
   items.forEach((item) => {
-    content += `<li>${item.name}</li>`;
+    content += `<li>${item.name} x ${item.quantity}</li>`;
   });
   selectedFoodsContainer.innerHTML = content;
-  foodsArr.value = getIdsOnly();
-  console.log(foodsArr.value);
+  foodsArr.value = JSON.stringify(items);
+  // console.log(foodsArr.value);
 };
 
 const getIdsOnly = () => {

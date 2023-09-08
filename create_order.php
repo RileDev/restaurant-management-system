@@ -54,7 +54,14 @@
                         <?php 
                             $foods = fetch_foods(1);
                             foreach($foods as $food){
-                                echo "<button class='btn btn-warning my-3 text-uppercase' id='foodsBtn' data-id='".$food['id']."' onclick='fetchFoods(this)'>".$food['name']."</button>";
+                                ?>
+                                <div>
+                                <?php
+                                    echo "<input type='number' value='1' min='1' max='99' class='mx-2' id='foodsQuantityInput' data-id='".$food['id']."'/>";
+                                    echo "<button class='btn btn-warning my-3 text-uppercase w-75' id='foodsBtn' data-id='".$food['id']."' onclick='fetchFoods(this)'>".$food['name']."</button>";
+                                ?>
+                                </div>
+                            <?php
                             }
                             ?>
                     </div>
@@ -65,7 +72,14 @@
                         <?php 
                             $foods = fetch_foods(2);
                             foreach($foods as $food){
-                                echo "<button class='btn btn-primary my-3 text-uppercase' id='foodsBtn' data-id='".$food['id']."' onclick='fetchFoods(this)'>".$food['name']."</button>";
+                            ?>
+                                <div>
+                                <?php
+                                echo "<input type='number' value='1' min='1' max='99' class='mx-2' id='foodsQuantityInput' data-id='".$food['id']."'/>";
+                                echo "<button class='btn btn-primary my-3 text-uppercase w-75' id='foodsBtn' data-id='".$food['id']."' onclick='fetchFoods(this)'>".$food['name']."</button>";
+                                ?>
+                                </div>
+                            <?php
                             }
                             ?>
                     </div>
@@ -86,7 +100,7 @@
         <div class="actions my-5">
             <form action="finish_order.php" method="post">
                 <input type="hidden" name="foods-array" id="foods-array">
-                <button class="btn btn-success" onclick="createOrder()">Create Order</button>
+                <button class="btn btn-success">Create Order</button>
             </form>
             
         </div>
