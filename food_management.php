@@ -65,7 +65,7 @@
             ?>
             </ul>
 
-            <ul class="list-group pt-5">
+            <ul class="list-group py-5">
             <h3>Drinks List</h3>
             <?php 
                 foreach($drinks as $drink){
