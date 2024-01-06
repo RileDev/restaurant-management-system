@@ -38,14 +38,14 @@
                     <a href="logout.php" class="btn btn-danger">Logout</a>
                 </div>
                 <div>
-                    <?php if($user["role_id"] == 1): ?>
+                    <?php if(role_checklist($user["role_id"])): ?>
                         <div class="dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Actions
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Add user</a></li>
-                                <li><a class="dropdown-item" href="#">Add food</a></li>
+                                <li><a class="dropdown-item" href="user_management.php">Manage users</a></li>
+                                <li><a class="dropdown-item" href="food_management.php">Manage foods</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#">Manage orders</a></li>
                             </ul>

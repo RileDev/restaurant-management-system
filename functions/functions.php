@@ -38,10 +38,13 @@
         }
     }
 
-    function fetch_foods($cat){
+    function fetch_foods($cat, $filter_deleted = true){
         global $conn;
         $cat = filter_var($cat, FILTER_SANITIZE_NUMBER_INT);
-        $sql = "SELECT * FROM `foods` WHERE category_id = $cat AND is_deleted = 0";
+        $sql = "SELECT * FROM `foods` WHERE category_id = $cat";
+        if($filter_deleted){
+            $sql .= " AND is_deleted = 0";
+        }
         $run = $conn->query($sql);
         $results = $run->fetch_all(MYSQLI_ASSOC);
         
@@ -57,4 +60,8 @@
         $sql = "SELECT users.username, users.email, users.created_at, roles.id as role_id, roles.name as 'role' FROM `users` JOIN roles ON users.role_id = roles.id WHERE users.id = $user_id";
         $run = $conn->query($sql);
         return $run->fetch_assoc();
+    }
+
+    function role_checklist($role_id, $role_whitelist = [1]){
+        return in_array($role_id, $role_whitelist);
     }
