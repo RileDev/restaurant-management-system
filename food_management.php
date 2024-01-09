@@ -92,12 +92,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                napraviti formu za naziv hrane i odabir kategorije
+                <form action="add_food.php" method="post">
+                    <label for="food">Food name</label>
+                    <input type="text" id="food" name="food" required> </br>
+                    <label for="cat" class="mt-3">Category</label> </br>
+                    <input type="radio" name="cat" id="meal" value="1" required>
+                    <label for="meal">Meal</label> </br>
+                    <input type="radio" name="cat" id="drink" value="2" required>
+                    <label for="drink">Drink</label>
+                    
+                    <div class="modal-footer mt-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            
             </div>
         </div>
     </div>
