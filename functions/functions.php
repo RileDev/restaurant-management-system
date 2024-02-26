@@ -55,6 +55,21 @@
         $conn->close();
     }
 
+    function fetch_users(){
+        global $conn;
+        $sql = "SELECT users.username, users.email, users.created_at, roles.id as role_id, roles.name as 'role' FROM `users` JOIN roles ON users.role_id = roles.id";
+        
+        $run = $conn->query($sql);
+        $results = $run -> fetch_assoc();
+        
+        if($run->num_rows > 0){
+           return $results;
+        }
+
+        $conn->close();
+    }
+
+
     function get_user($user_id){
         global $conn;
         $sql = "SELECT users.username, users.email, users.created_at, roles.id as role_id, roles.name as 'role' FROM `users` JOIN roles ON users.role_id = roles.id WHERE users.id = $user_id";

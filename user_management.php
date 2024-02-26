@@ -42,6 +42,18 @@
         </nav>
     </header>
 
+    <section class="container">
+        <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Add User</button>
+        <div class="all_users">
+            <ul class="list-group">
+                <h3>Users list</h3>
+                <?php 
+                    $users = fetch_users();
+                    print_r($users);
+                ?>
+            </ul>
+        </div>
+    </section>
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
