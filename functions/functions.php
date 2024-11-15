@@ -29,7 +29,7 @@
     
         $run = $conn->query($sql);
         $results = $run->fetch_all(MYSQLI_ASSOC);
-        
+
         if(!empty($results)){
             return $results;
         
@@ -113,4 +113,15 @@
         }
 
         return $messages;
+    }
+
+    function create_user($username, $email, $password, $role_id){
+        global $conn;
+
+        $sql = "INSERT INTO users(username, email, password, role_id) VALUES(?, ?, ?, ?)";
+        $run = $conn->prepare($sql);
+        $run->bind_param("sssi", $username, $email, $password, $role_id);
+        $run->execute();
+
+        $conn->close();
     }

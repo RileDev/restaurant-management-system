@@ -43,7 +43,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="food_management.php">Manage foods</a></li>
-                                <li><a class="dropdown-item" href="#">Manage orders</a></li>
+                                <li><a class="dropdown-item" href="orders_management.php">Manage orders</a></li>
                                 <?php if(role_checklist($user["role_id"])): ?>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="user_management.php">Manage users</a></li>

@@ -20,15 +20,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         isset($_POST["password"]) &&
         isset($_POST["role"])
     ){
-        $username = $_POST["username"];
-        $email = $_POST["email"];
-        $password = $_POST["password"];
+        $username = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
+        $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+        $password = filter_var($_POST["password"], FILTER_SANITIZE_STRING);
         $role = $_POST["role"];
 
         $errors = validate_user($username, $email, $password);
 
         if(empty($errors)){
-            echo $username . " " . $email . " " . $password . " " . $role;
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            create_user($username, $email, $password, $role);
+            redirect_message("User added successfully", "user_management.php", true);
         }else{
             $messages = "";
 
