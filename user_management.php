@@ -61,17 +61,17 @@
                     foreach (fetch_users() as $user){
                 ?>
                 <tr>
-                    <th scope="row"><?=$user["id"]?></th>
-                    <td><?=$user["username"]?></td>
-                    <td><?=$user["email"]?></td>
-                    <td><?=$user["role"]?></td>
-                    <td><?=$user["created_at"]?></td>
+                    <th class="<?php if($user["is_deleted"] == 1) : ?>text-secondary <?php endif; ?>" scope="row"><?=$user["id"]?></th>
+                    <td class="<?php if($user["is_deleted"] == 1) : ?>text-secondary <?php endif; ?>"><?=$user["username"]?></td>
+                    <td class="<?php if($user["is_deleted"] == 1) : ?>text-secondary <?php endif; ?>"><?=$user["email"]?></td>
+                    <td class="<?php if($user["is_deleted"] == 1) : ?>text-secondary <?php endif; ?>"><?=$user["role"]?></td>
+                    <td class="<?php if($user["is_deleted"] == 1) : ?>text-secondary <?php endif; ?>"><?=$user["created_at"]?></td>
                     <td>
                         <?php if($user["id"] != $user_id): ?>
                             <?php if ($user["is_deleted"] == 0) : ?>
                                 <a href="delete_user.php?id=<?=$user["id"]?>" class="badge bg-danger text-decoration-none"><i class="fa-solid fa-trash"></i></a>
                             <?php else: ?>
-                                <a href="enable_user.php?id=<?=$user["id"]?>" class="badge bg-primary text-decoration-none"><i class="fa-solid fa-check"></i></a>
+                                <a href="enable_user.php?id=<?=$user["id"]?>" class="badge bg-success text-decoration-none"><i class="fa-solid fa-check"></i></a>
                             <?php endif; ?>
                         <?php else: ?>
                             <a class="badge bg-secondary text-decoration-none" disabled><i class="fa-solid fa-trash"></i></a>
@@ -85,6 +85,40 @@
             </table>
         </div>
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="validate_user.php" method="post">
+                        <label for="username">Username</label>
+                        <input class="form-control" type="text" id="username" name="username" required> <br>
+                        <label for="email">E-mail</label>
+                        <input class="form-control" type="email" id="email" name="email" required> <br>
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" id="password" name="password" required> <br>
+
+                        <label for="roles">Roles: </label> <br>
+                        <?php foreach(fetch_roles() as $role) :?>
+                            <input class="form-check-input" type="radio" name="role" id="<?=$role["name"]?>" value="<?=$role["id"]?>">
+                            <label for="<?=$role["name"]?>" style="text-transform: capitalize"><?=$role["name"]?></label> <br>
+                        <?php endforeach; ?>
+
+                        <div class="modal-footer mt-3">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add User</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

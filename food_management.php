@@ -57,7 +57,7 @@
                         <?php if ($meal["is_deleted"] == 0) : ?>
                         <a href="delete_food.php?id=<?=$meal["id"]?>" class="badge bg-danger text-decoration-none"><i class="fa-solid fa-trash"></i></a>
                         <?php else: ?>
-                        <a href="enable_food.php?id=<?=$meal["id"]?>" class="badge bg-primary text-decoration-none"><i class="fa-solid fa-check"></i></a>
+                        <a href="enable_food.php?id=<?=$meal["id"]?>" class="badge bg-success text-decoration-none"><i class="fa-solid fa-check"></i></a>
                         <?php endif; ?>
                     </li>
                     <?php
@@ -74,7 +74,7 @@
                         <?php if ($drink["is_deleted"] == 0) : ?>
                         <a href="delete_food.php?id=<?=$drink["id"]?>" class="badge bg-danger text-decoration-none"><i class="fa-solid fa-trash"></i></a>
                         <?php else: ?>
-                        <a href="enable_food.php?id=<?=$drink["id"]?>" class="badge bg-primary text-decoration-none"><i class="fa-solid fa-check"></i></a>
+                        <a href="enable_food.php?id=<?=$drink["id"]?>" class="badge bg-success text-decoration-none"><i class="fa-solid fa-check"></i></a>
                         <?php endif; ?>
                     </li>
                     <?php
@@ -94,11 +94,11 @@
             <div class="modal-body">
                 <form action="add_food.php" method="post">
                     <label for="food">Food name</label>
-                    <input type="text" id="food" name="food" required> </br>
+                    <input class="form-control" type="text" id="food" name="food" required>
                     <label for="cat" class="mt-3">Category</label> </br>
-                    <input type="radio" name="cat" id="meal" value="1" required>
+                    <input class="form-check-input" type="radio" name="cat" id="meal" value="1" required>
                     <label for="meal">Meal</label> </br>
-                    <input type="radio" name="cat" id="drink" value="2" required>
+                    <input class="form-check-input" type="radio" name="cat" id="drink" value="2" required>
                     <label for="drink">Drink</label>
                     
                     <div class="modal-footer mt-3">

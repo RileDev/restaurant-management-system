@@ -38,6 +38,22 @@
         }
     }
 
+    function fetch_roles(){
+        global $conn;
+
+        $sql = "SELECT * FROM roles WHERE roles.is_deleted = 0;";
+
+        $run = $conn->query($sql);
+        $results = $run->fetch_all(MYSQLI_ASSOC);
+
+        if(!empty($results)){
+            return $results;
+        }
+        else{
+            return false;
+        }
+    }
+
     function fetch_foods($cat, $filter_deleted = true){
         global $conn;
         $cat = filter_var($cat, FILTER_SANITIZE_NUMBER_INT);
@@ -79,4 +95,22 @@
 
     function role_checklist($role_id, $role_whitelist = [1]){
         return in_array($role_id, $role_whitelist);
+    }
+
+    function validate_user($username, $email, $password){
+        $messages = [];
+
+        if(strlen($username) < 3 || strlen($username) > 30){
+            $messages[] = "Username must be between 3 and 30 characters";
+        }
+
+        if(!str_contains($email, '@') || !str_contains($email, '.')){
+            $messages[] = "Email must be a valid email address";
+        }
+
+        if(strlen($password) < 6){
+            $messages[] = "Password must be at least 6 characters";
+        }
+
+        return $messages;
     }
