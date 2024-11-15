@@ -1,8 +1,6 @@
 <?php
     require_once("./functions/init.php");
 
-    $role_whitelist = [1, 2];
-    
     if(!isset($_SESSION["user_id"])){
         redirect_message("Access denied", "index.php", true);
     }
@@ -38,22 +36,24 @@
                     <a href="logout.php" class="btn btn-danger">Logout</a>
                 </div>
                 <div>
-                    <?php if(role_checklist($user["role_id"])): ?>
+                    <?php if(role_checklist($user["role_id"], [1, 2])): ?>
                         <div class="dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Actions
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="user_management.php">Manage users</a></li>
                                 <li><a class="dropdown-item" href="food_management.php">Manage foods</a></li>
-                                <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#">Manage orders</a></li>
+                                <?php if(role_checklist($user["role_id"])): ?>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="user_management.php">Manage users</a></li>
+                                <?php endif; ?>
                             </ul>
                         </div>
                     <?php endif ?>
                 </div>  
                 <div>
-                    <?php if(in_array($user["role_id"], $role_whitelist)) : ?>
+                    <?php if(role_checklist($user["role_id"], [1, 2, 3])) : ?>
                     <form action="create_order.php" method="post">
                         <input type="hidden" name="user_id" value="<?= $user_id?>" />
                         <button class="btn btn-success">New order</button>
@@ -97,8 +97,10 @@
                             </ol> 
                             <hr>
                             <h6 class="card-subtitle mb-2 text-body-secondary">Order created: <?= date('H:i:s, d. F', strtotime($element["created"]))?></h6>
+                            <?php if(role_checklist($user["role_id"], [1, 2, 3])) : ?>
                             <hr>
                             <a href="remove_order.php?id=<?=$id?>" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

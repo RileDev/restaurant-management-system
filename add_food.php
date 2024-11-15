@@ -9,9 +9,9 @@
     $user_id = $_SESSION["user_id"];
     $user = get_user($user_id);
 
-    $is_admin = role_checklist($user["role_id"]);
+    $is_authorized = role_checklist($user["role_id"], [1, 2]);
 
-    if(!$is_admin){
+    if(!$is_authorized){
         redirect_message("Access denied", "index.php", true);
     }
 
