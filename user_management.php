@@ -45,13 +45,44 @@
     <section class="container">
         <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Add User</button>
         <div class="all_users">
-            <ul class="list-group">
-                <h3>Users list</h3>
-                <?php 
-                    $users = fetch_users();
-                    print_r($users);
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Created at</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                    foreach (fetch_users() as $user){
                 ?>
-            </ul>
+                <tr>
+                    <th scope="row"><?=$user["id"]?></th>
+                    <td><?=$user["username"]?></td>
+                    <td><?=$user["email"]?></td>
+                    <td><?=$user["role"]?></td>
+                    <td><?=$user["created_at"]?></td>
+                    <td>
+                        <?php if($user["id"] != $user_id): ?>
+                            <?php if ($user["is_deleted"] == 0) : ?>
+                                <a href="delete_user.php?id=<?=$user["id"]?>" class="badge bg-danger text-decoration-none"><i class="fa-solid fa-trash"></i></a>
+                            <?php else: ?>
+                                <a href="enable_user.php?id=<?=$user["id"]?>" class="badge bg-primary text-decoration-none"><i class="fa-solid fa-check"></i></a>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <a class="badge bg-secondary text-decoration-none" disabled><i class="fa-solid fa-trash"></i></a>
+                        <?php endif; ?>
+                        <a href="edit_user.php?id=<?=$user["id"]?>" class="badge bg-primary text-decoration-none"><i class="fa-solid fa-pen"></i></a>
+                    </td>
+                </tr>
+
+                <?php }?>
+                </tbody>
+            </table>
         </div>
     </section>
     

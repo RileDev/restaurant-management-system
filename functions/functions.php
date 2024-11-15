@@ -57,10 +57,10 @@
 
     function fetch_users(){
         global $conn;
-        $sql = "SELECT users.username, users.email, users.created_at, roles.id as role_id, roles.name as 'role' FROM `users` JOIN roles ON users.role_id = roles.id";
+        $sql = "SELECT users.id, users.username, users.email, users.created_at, roles.id as role_id, roles.name as 'role', users.is_deleted FROM `users` JOIN roles ON users.role_id = roles.id;";
         
         $run = $conn->query($sql);
-        $results = $run -> fetch_assoc();
+        $results = $run -> fetch_all(MYSQLI_ASSOC);
         
         if($run->num_rows > 0){
            return $results;
